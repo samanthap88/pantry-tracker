@@ -21,7 +21,6 @@ export default function DataTable({
   setSelectionModel,
   onSelectionModelChange,
   searchTerm,
-  setSearchTerm
 }: {
   items: {
     id: string;
@@ -39,7 +38,6 @@ export default function DataTable({
   setSelectionModel: React.Dispatch<React.SetStateAction<GridRowSelectionModel>>;
   onSelectionModelChange: (newSelectionModel: GridRowSelectionModel) => void;
   searchTerm: string;
-  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const [filteredItems, setFilteredItems] = useState<any[]>([]);
   async function fetchPantryItems(): Promise<any[]> {
