@@ -1,6 +1,6 @@
 "use client"
 import * as React from 'react';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
 import { db } from '../../firebase';
 import { useEffect, useState } from 'react';
 import { collection, getDocs } from "firebase/firestore";
@@ -14,7 +14,33 @@ const columns: GridColDef[] = [
   { field: 'expirationDate', headerName: 'expiration date',},
 ];
 
-export default function DataTable({items, setItems, selectionModel, setSelectionModel, onSelectionModelChange, searchTerm}) {
+export default function DataTable({
+  items,
+  setItems,
+  selectionModel,
+  setSelectionModel,
+  onSelectionModelChange,
+  searchTerm,
+  setSearchTerm
+}: {
+  items: {
+    id: string;
+    name: string;
+    quantity: number;
+    expirationDate: string;
+  }[];
+  setItems: React.Dispatch<React.SetStateAction<{
+    id: string;
+    name: string;
+    quantity: number;
+    expirationDate: string;
+  }[]>>;
+  selectionModel: GridRowSelectionModel;
+  setSelectionModel: React.Dispatch<React.SetStateAction<GridRowSelectionModel>>;
+  onSelectionModelChange: (newSelectionModel: GridRowSelectionModel) => void;
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+}) {
   const [filteredItems, setFilteredItems] = useState<any[]>([]);
   async function fetchPantryItems(): Promise<any[]> {
     const pantryCollectionRef = collection(db, 'pantry-items');
